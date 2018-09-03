@@ -7,9 +7,6 @@ const config = (file, format, plugins) => ({
     name: 'withRaf',
     format,
     file,
-    globals: {
-      'camera-2d': 'withRaf',
-    },
   },
   plugins,
 });
