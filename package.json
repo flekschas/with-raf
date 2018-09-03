@@ -9,7 +9,7 @@
     "higher order function"
   ],
   "license": "MIT",
-  "main": "dist/width-raf.js",
+  "main": "dist/with-raf.js",
   "module": "src/index.js",
   "files": [
     "src/index.js",
