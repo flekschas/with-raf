@@ -1,0 +1,49 @@
+{
+  "name": "with-raf",
+  "version": "0.1.0",
+  "description": "A higher-order function requestAnimationFrame-based throttling",
+  "author": "Fritz Lekschas",
+  "keywords": [
+    "request animation frame",
+    "raf",
+    "higher order function"
+  ],
+  "license": "MIT",
+  "main": "dist/width-raf.js",
+  "module": "src/index.js",
+  "files": [
+    "src/index.js",
+    "dist/with-raf.js",
+    "dist/with-raf.min.js"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint src/index.js rollup.config.js",
+    "prepublishOnly": "npm run lint",
+    "prerelease": "rm -rf dist/*; npm run build; zip -r dist.zip dist",
+    "pretest": "npm run lint",
+    "watch": "rollup -cw"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "rollup": "^0.64.1",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-terser": "^1.0.1",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
+  },
+  "homepage": "https://github.com/flekschas/with-raf",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/flekschas/with-raf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/flekschas/with-raf/issues"
+  }
+}
