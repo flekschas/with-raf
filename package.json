@@ -1,11 +1,13 @@
 {
   "name": "with-raf",
   "version": "0.1.0",
-  "description": "A higher-order function requestAnimationFrame-based throttling",
+  "description": "requestAnimationFrame-based throttling",
   "author": "Fritz Lekschas",
   "keywords": [
     "request animation frame",
     "raf",
+    "throttle",
+    "throttling",
     "higher order function"
   ],
   "license": "MIT",
@@ -21,7 +23,9 @@
     "lint": "eslint src/index.js rollup.config.js",
     "prepublishOnly": "npm run lint",
     "prerelease": "rm -rf dist/*; npm run build; zip -r dist.zip dist",
-    "pretest": "npm run lint",
+    "pretest": "npm run lint; npm run build",
+    "test": "node tests/index.js | tap-spec",
+    "test-coverage": "npm run build; istanbul cover tape tests/index.js",
     "watch": "rollup -cw"
   },
   "dependencies": {},
@@ -32,6 +36,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "istanbul": "^0.4.5",
     "rollup": "^0.64.1",
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-terser": "^1.0.1",
