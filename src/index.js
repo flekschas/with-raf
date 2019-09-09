@@ -1,21 +1,25 @@
 /**
- * Higher order function for request animation frame-based throttling.
+ * Higher order function for request animation frame-based throttling. If you
+ * call the wrapped function multiple times, the last argument will be used the
+ * next time a frame is available.
  * @param {function} fn - Function to be throttled
- * @param {function} callback - Callback function, which is triggered with the
+ * @param {function} onCall - Callback function, which is triggered with the
  *   return value of `fn`.
  * @param {function} raf - Request animation frame polyfill. Defaults to
  *   `window.requestAnimationFrame`.
- * @return {function} Throttled function `fn`.
+ * @return {function} Throttled function `fn` which returns the request ID that
+ *   can be used to cancel the request.
  */
-const withRaf = (fn, callback, raf = window.requestAnimationFrame) => {
+const withRaf = (fn, onCall, raf = window.requestAnimationFrame) => {
   let isRequesting = false;
+  let requestedArgs;
   return (...args) => {
-    if (isRequesting) {
-      return undefined;
-    }
+    requestedArgs = args;
+    if (isRequesting) return undefined;
+    isRequesting = true;
     return raf(() => {
-      const resp = fn(...args);
-      if (callback) callback(resp);
+      const response = fn(...requestedArgs);
+      if (onCall) onCall(response);
       isRequesting = false;
     });
   };
