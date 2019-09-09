@@ -17,9 +17,20 @@ test('RAF-based throttling', (t) => {
 });
 
 // Test callback
-test('callback function', (t) => {
+test('onCall callback function', (t) => {
+  t.plan(1);
+  const fakeRaf = fn => setTimeout(() => { fn(); }, 250);
+  const onCall = value => t.ok(value === 6);
+  withRaf(sum, onCall, fakeRaf)(1, 2, 3);
+});
+
+// Make sure the last call is evaluated and not the first
+test('last called arguments are used', (t) => {
   t.plan(2);
   const fakeRaf = fn => setTimeout(() => { fn(); t.ok(true); }, 250);
-  const callback = value => t.ok(value === 6);
-  withRaf(sum, callback, fakeRaf)(1, 2, 3);
+  const onCall = value => t.ok(value === 12);
+  const sumRaf = withRaf(sum, onCall, fakeRaf);
+  sumRaf(1, 2, 3);
+  sumRaf(2, 3, 4);
+  sumRaf(3, 4, 5);
 });
