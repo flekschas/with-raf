@@ -19,8 +19,8 @@ const withRaf = (fn, onCall, raf = window.requestAnimationFrame) => {
     isRequesting = true;
     return raf(() => {
       const response = fn(...requestedArgs);
-      if (onCall) onCall(response);
       isRequesting = false;
+      if (onCall) onCall(response);
     });
   };
 };
